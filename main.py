@@ -6,6 +6,7 @@ from data import db_session
 from data.users_resource import UsersResource, UsersListResource
 
 app = Flask(__name__)
+api = Api(app)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -13,9 +14,8 @@ login_manager.init_app(app)
 
 def main():
     db_session.global_init('db/blogs.sqlite')
-    api = Api(app)
     api.add_resource(UsersResource, '/api/v2/users/<int:user_id>')
-    api.add_resource(UsersListResource, '/api/v2/users/')
+    api.add_resource(UsersListResource, '/api/v2/users')
     app.run()
 
 
